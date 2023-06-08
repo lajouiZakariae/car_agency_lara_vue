@@ -29,6 +29,7 @@ const carToAdd = ref({
     make: "",
     model: "",
     year: "",
+    price: 0,
     readyToSell: false,
     agency: "",
     category: "",
@@ -36,17 +37,42 @@ const carToAdd = ref({
 
 const errors = ref({});
 
-const addCar = () => {
+const addCar = async () => {
     if (values(carToAdd.value).includes("")) return (errors.value.empty = true);
     errors.value.empty = false;
 
-    if (!isInteger(errors.value.year)) return (errors.value.wrongInfo = true);
+    if (!isInteger(errors.value.year) || !isInteger(errors.value.price))
+        return (errors.value.wrongInfo = true);
+    errors.value.wrongInfo = false;
 
-    axios.post("/api/cars", carToAdd);
+    await axios
+        .post("/api/cars", carToAdd.value, {
+            headers: { Accept: "application/json" },
+        })
+        .catch((err) => {
+            console.log(err);
+            if (err.response.status === 422) errors.value.wrongInfo = true;
+        });
 };
 </script>
 
 <template>
+    <button
+        class="mb-2 btn btn-dark"
+        @click="
+            carToAdd = {
+                make: 'Mercedes',
+                model: 's class',
+                year: 2001,
+                price: 70000,
+                readyToSell: true,
+                agency: 1,
+                category: 2,
+            }
+        "
+    >
+        Random
+    </button>
     <form @submit.prevent="addCar">
         <div class="form-group mb-2">
             <input
@@ -70,6 +96,14 @@ const addCar = () => {
                 class="form-control"
                 placeholder="year"
                 v-model="carToAdd.year"
+            />
+        </div>
+        <div class="form-group mb-2">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Price"
+                v-model="carToAdd.price"
             />
         </div>
         <div class="form-group mb-2">

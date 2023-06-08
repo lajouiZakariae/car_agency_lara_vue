@@ -13,7 +13,6 @@ export default function useFetchCar() {
                 error.value = true;
             }
         });
-        console.log(data);
         loading.value = false;
         cars.value = data.data;
     };
