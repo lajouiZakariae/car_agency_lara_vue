@@ -19,6 +19,7 @@ class CarResource extends JsonResource {
             "year" => $this->year,
             "price" => $this->price,
             "readyToSell" => $this->ready_to_sell,
+            // "cate"
         ];
     }
 }
