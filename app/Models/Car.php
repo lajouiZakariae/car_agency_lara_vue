@@ -21,9 +21,14 @@ class Car extends Model {
     ];
 
     static function recentFive() {
-        return DB::table("cars")
-            ->orderBy("id", "desc")
-            ->take(5)
-            ->get();
+        return;
+        // return DB::table("cars")
+        //     ->orderBy("id", "desc")
+        //     ->take(5)
+        //     ->get();
+    }
+
+    public function agency() {
+        return $this->belongsTo(Agency::class);
     }
 }

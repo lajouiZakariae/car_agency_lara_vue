@@ -2,27 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repos\CarRepo;
 use App\Http\Requests\CarPostRequest;
-use App\Http\Resources\CarResource;
-use App\Models\Agency;
 use App\Models\Car;
-use App\Models\Category;
 
 class CarController extends Controller {
+
+    protected CarRepo $carRepo;
+
+    public function __construct(CarRepo $carRepo) {
+        $this->carRepo = $carRepo;
+    }
+
     public function index() {
-        return  CarResource::collection(Car::all());
+        return  $this->carRepo->all();
     }
 
     public function overview() {
-        return CarResource::collection(Car::recentFive());
+        return $this->carRepo->recentFive();
     }
 
     public function store(CarPostRequest $request) {
         $data = $request->validated();
-
-        // $car = new Car($data);
-        // $car->save();
-        // return $car->id;
+        $this->carRepo->save($data);
     }
 
     public function show(Car $car) {

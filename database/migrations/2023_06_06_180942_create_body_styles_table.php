@@ -9,7 +9,7 @@ return new class extends Migration {
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('body_styles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string("name");
@@ -26,6 +26,6 @@ return new class extends Migration {
      * Reverse the migrations.
      */
     public function down(): void {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('body_styles');
     }
 };

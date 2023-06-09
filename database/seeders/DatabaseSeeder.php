@@ -4,37 +4,30 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Car;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void {
-        $user = new User([
+        (new User([
             "name" => "zakariae",
             "email" => "first@user.com",
             "password" => Hash::make("1234"),
-        ]);
+        ]))->save();
 
-        $user->save();
+        foreach (["Tangier", "Casa", "Marrakech", "Tetouan"] as $key)
+            DB::table("agencies")->insert(["user_id" => 1, "name" => $key, "slug" => Str::slug($key), "created_at" => Date::now(), "updated_at" => Date::now()]);
 
-        foreach (["Tangier", "Casa", "Marrakech", "Tetouan"] as $key) {
-            DB::insert("INSERT INTO agencies (user_id,name,slug) VALUES (1,?,?);", [
-                $key,
-                Str::slug($key)
-            ]);
-        }
+        foreach (['Sedan', 'Hatch Back', 'SUV', "Cross Over"] as $key)
+            DB::table("body_styles")->insert(["user_id" => 1, "name" => $key, "slug" => Str::slug($key), "created_at" => Date::now(), "updated_at" => Date::now()]);
 
-        foreach (['Sedan', 'Hatch Back', 'SUV', "Cross Over"] as $key) {
-            DB::insert("INSERT INTO categories (user_id,name,slug) VALUES (1,?,?);", [
-                $key,
-                Str::slug($key)
-            ]);
-        }
+        foreach (File::json(base_path() . "\sql\cars.json") as $car)
+            DB::table("cars")->insert(array_merge($car, ["user_id" => 1, "created_at" => Date::now(), "updated_at" => Date::now()]));
     }
 }

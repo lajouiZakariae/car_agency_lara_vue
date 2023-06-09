@@ -10,6 +10,11 @@ export default createRouter({
             component: Cars,
         },
         {
+            path: "/agencies/:id",
+            name: "Agency",
+            component: () => import("../Agency/index.vue"),
+        },
+        {
             path: "/agencies",
             name: "Agencies",
             component: () => import("../Agencies/index.vue"),

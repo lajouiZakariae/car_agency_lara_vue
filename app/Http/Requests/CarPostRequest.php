@@ -11,12 +11,6 @@ class CarPostRequest extends FormRequest {
         return true;
     }
 
-    // public function messages(): array {
-    //     return [
-    //         "price.integer" => "Wrong Information",
-    //     ];
-    // }
-
     public function rules(): array {
         return [
             "make" => "bail|required|max:255",

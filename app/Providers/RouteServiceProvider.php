@@ -36,5 +36,7 @@ class RouteServiceProvider extends ServiceProvider {
         });
 
         Route::pattern("car", "[0-9]+");
+        Route::pattern("agency", "[0-9]+");
+        Route::pattern("category", "[0-9]+");
     }
 }

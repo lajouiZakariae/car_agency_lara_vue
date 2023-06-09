@@ -10,7 +10,8 @@ const getAgencies = async () => {
             console.log(err);
         }
     });
-    agencies.value = data;
+    console.log(data.data);
+    agencies.value = data.data;
 };
 getAgencies();
 

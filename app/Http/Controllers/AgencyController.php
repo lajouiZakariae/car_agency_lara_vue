@@ -2,37 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repos\AgencyRepo;
 use App\Http\Requests\AgencyPostRequest;
 use App\Models\Agency;
-use App\Models\Inventory;
-use Illuminate\Http\Request;
 
 class AgencyController extends Controller {
-    public function index() {
-        return Agency::all();
+    public function index(AgencyRepo $agencyRepo) {
+        return $agencyRepo->all();
+    }
+
+    public function overview(AgencyRepo $agencyRepo) {
+        return $agencyRepo->allWithCarCount();
     }
 
     public function store(AgencyPostRequest $request) {
         $request->validated();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Agency $agency) {
-        return  $agency->cars;
+    public function show(AgencyRepo $agencyRepo, $id) {
+        return $agencyRepo->getWithRecentCars($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(AgencyPostRequest $request, Agency $agency) {
         $agency->update();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Agency $agency) {
         return $agency->delete();
     }

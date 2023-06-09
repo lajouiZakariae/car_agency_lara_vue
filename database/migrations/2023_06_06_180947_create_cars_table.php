@@ -14,10 +14,16 @@ return new class extends Migration {
             $table->timestamps();
             $table->string("make");
             $table->string("model");
-            $table->year("year");
-            // $table->float("cost");
             $table->float("price");
-            // $table->integer("quantity");
+            $table->integer("quantity");
+            $table->year("year");
+            $table->string("color");
+            $table->integer("mileage");
+            $table->boolean("new");
+            $table->string("fuel_type");
+            $table->string("transmission");
+            $table->string("image_path");
+            $table->integer("engine_size");
             $table->boolean("ready_to_sell");
 
             // Foreign Keys
@@ -29,9 +35,9 @@ return new class extends Migration {
                 ->references("id")
                 ->on("agencies");
 
-            $table->foreignId("category_id")
+            $table->foreignId("body_style_id")
                 ->references("id")
-                ->on("categories");
+                ->on("body_styles");
         });
     }
 
