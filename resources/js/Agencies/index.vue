@@ -12,7 +12,7 @@ onMounted(async () => {
         .catch((err) => err && (error.value = true));
     console.log(data);
     loading.value = false;
-    agencies.value = data.data;
+    agencies.value = data;
 });
 </script>
 
@@ -35,7 +35,7 @@ onMounted(async () => {
                     <td>{{ agency.name }}</td>
                     <td>
                         <router-link :to="`/agencies/${agency.id}`">
-                            {{ agency.carCount }}
+                            {{ agency.car_count }}
                         </router-link>
                     </td>
                 </tr>

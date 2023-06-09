@@ -6,6 +6,7 @@ import { useRoute } from "vue-router";
 const loading = ref(true);
 const error = ref(false);
 const agency = ref(null);
+const cars = ref(null);
 
 const route = useRoute();
 
@@ -14,6 +15,7 @@ onMounted(async function getAgency() {
     console.log(data);
     loading.value = false;
     agency.value = data.agency;
+    cars.value = data.cars;
 });
 </script>
 
@@ -28,24 +30,21 @@ onMounted(async function getAgency() {
                     <p>{{ agency.carCount }}</p>
                 </div>
             </div>
-            <div
-                v-if="agency.cars && agency.cars.length"
-                class="table-responsive"
-            >
+            <div v-if="cars && cars.length" class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr class="bg-dark">
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Year</th>
+                            <!-- <th scope="col">Year</th> -->
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr v-for="car of agency.cars">
+                        <tr v-for="car of cars">
                             <td scope="row">{{ car.id }}</td>
                             <td>{{ car.make }}&nbsp;{{ car.model }}</td>
-                            <td>{{ car.year }}</td>
+                            <!-- <td>{{ car.year }}</td> -->
                         </tr>
                     </tbody>
                 </table>

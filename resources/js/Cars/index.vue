@@ -15,19 +15,19 @@ const { loading, error, cars } = useFetchCars();
             <div v-if="error" class="alert alert-danger">
                 Whoops! Something is wrong. Try later.
             </div>
-            <div class="table-responsive" v-if="!loading && !error">
-                <table v-if="cars && cars.length" class="table w-100">
+            <div class="table-responsive" v-if="cars">
+                <table v-if="cars.length" class="table w-100">
                     <thead>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Year</th>
+                        <!-- <th>Year</th> -->
                     </thead>
 
                     <tbody>
                         <tr v-for="car of cars" class="col-6">
                             <td>{{ car.id }}</td>
                             <td>{{ car.make }} {{ car.model }}</td>
-                            <td>{{ car.year }}</td>
+                            <!-- <td>{{ car.year }}</td> -->
                         </tr>
                     </tbody>
                 </table>
